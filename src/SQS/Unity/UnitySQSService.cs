@@ -6,6 +6,7 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using AmazonMessage = Amazon.SQS.Model.Message;
 
 namespace Sweet.Game.Amazon.Unity
 {
@@ -28,13 +29,13 @@ namespace Sweet.Game.Amazon.Unity
                 credentials.SecretKey,
                 credentials.Token,
                 RegionEndpoint.GetBySystemName(region)
-            );   
+            );
         }
 
 
 
 
-        public void ReceiveMessageAsync(SQSRecieveMessageRequest request, ServiceCallback<SQSRecieveMessageRequest, SQSReceiveMessageResponse> callback)
+        public void ReceiveMessageAsync(SQSReceiveMessageRequest request, ServiceCallback<SQSReceiveMessageRequest, SQSReceiveMessageResponse> callback)
         {
             var req = new ReceiveMessageRequest();
             req.AttributeNames = request.AttributeNames;
@@ -46,13 +47,13 @@ namespace Sweet.Game.Amazon.Unity
             req.WaitTimeSeconds = request.WaitTimeSeconds;
 
             _client.ReceiveMessageAsync(req,
-                (result) => 
+                (result) =>
                 {
                     if (result.Exception != null)
                     {
-                        callback(new ServiceResult<SQSRecieveMessageRequest, SQSReceiveMessageResponse>(
-                            request, 
-                            null, 
+                        callback(new ServiceResult<SQSReceiveMessageRequest, SQSReceiveMessageResponse>(
+                            request,
+                            null,
                             result.Exception)
                         );
 
@@ -76,7 +77,7 @@ namespace Sweet.Game.Amazon.Unity
 
                             for (int i = 0; i < result.Response.Messages.Count; i++)
                             {
-                                Message amazonMessage = result.Response.Messages[i];
+                                AmazonMessage amazonMessage = result.Response.Messages[i];
                                 SQSMessage serviceMessage = new SQSMessage();
 
                                 serviceMessage.Attributes = amazonMessage.Attributes;
@@ -85,7 +86,7 @@ namespace Sweet.Game.Amazon.Unity
                                 serviceMessage.MD5OfMessageAttributes = amazonMessage.MD5OfMessageAttributes;
                                 serviceMessage.MessageId = amazonMessage.MessageId;
                                 serviceMessage.ReceiptHandle = amazonMessage.ReceiptHandle;
-                                
+
                                 if (amazonMessage.MessageAttributes != null)
                                 {
                                     if (amazonMessage.MessageAttributes.Count == 0)
@@ -110,15 +111,14 @@ namespace Sweet.Game.Amazon.Unity
                                         }
                                     }
                                 }
-
                                 response.Messages.Add(serviceMessage);
                             }
                         }
                     }
-                    
-                    callback(new ServiceResult<SQSRecieveMessageRequest, SQSReceiveMessageResponse>(
-                        request, 
-                        response, 
+
+                    callback(new ServiceResult<SQSReceiveMessageRequest, SQSReceiveMessageResponse>(
+                        request,
+                        response,
                         null)
                     );
                 }
@@ -133,14 +133,14 @@ namespace Sweet.Game.Amazon.Unity
             req.QueueUrl = request.QueueUrl;
 
             _client.DeleteMessageAsync(
-                req, 
-                (result) => 
+                req,
+                (result) =>
                 {
                     if (result.Exception != null)
                     {
                         callback(new ServiceResult<SQSDeleteMessageRequest, SQSDeleteMessageResponse>(
-                            request, 
-                            null, 
+                            request,
+                            null,
                             result.Exception)
                         );
 
@@ -151,8 +151,8 @@ namespace Sweet.Game.Amazon.Unity
                     UnityAWSUtility.CopyResponse(response, result.Response);
 
                     callback(new ServiceResult<SQSDeleteMessageRequest, SQSDeleteMessageResponse>(
-                        request, 
-                        response, 
+                        request,
+                        response,
                         null)
                     );
                 }
@@ -161,7 +161,7 @@ namespace Sweet.Game.Amazon.Unity
 
 
         public void DeleteMessageBatchAsync(SQSDeleteMessageBatchRequest request, ServiceCallback<SQSDeleteMessageBatchRequest, SQSDeleteMessageBatchResponse> callback)
-        { 
+        {
             var req = new DeleteMessageBatchRequest();
             req.QueueUrl = request.QueueUrl;
 
@@ -179,7 +179,7 @@ namespace Sweet.Game.Amazon.Unity
                     {
                         SQSDeleteMessageBatchRequestEntry e = request.Entries[i];
                         var entry = new DeleteMessageBatchRequestEntry();
-                        
+
                         entry.Id = e.Id;
                         entry.ReceiptHandle = e.ReceiptHandle;
 
@@ -189,14 +189,14 @@ namespace Sweet.Game.Amazon.Unity
             }
 
             _client.DeleteMessageBatchAsync(
-                req, 
-                (result) => 
+                req,
+                (result) =>
                 {
                     if (result.Exception != null)
                     {
                         callback(new ServiceResult<SQSDeleteMessageBatchRequest, SQSDeleteMessageBatchResponse>(
-                            request, 
-                            null, 
+                            request,
+                            null,
                             result.Exception)
                         );
 
@@ -253,10 +253,10 @@ namespace Sweet.Game.Amazon.Unity
                             }
                         }
                     }
-                    
+
                     callback(new ServiceResult<SQSDeleteMessageBatchRequest, SQSDeleteMessageBatchResponse>(
-                        request, 
-                        response, 
+                        request,
+                        response,
                         null)
                     );
                 }

@@ -23,7 +23,8 @@ namespace Sweet.Game.Amazon.Unity
 
         public void GetCredentialsAsync(UnityAction<ICognitoIdentityResult<ICredentials>> callback)
         {
-            _cognitoIdentityCredentials.GetCredentialsAsync(t => {
+            _cognitoIdentityCredentials.GetCredentialsAsync(t =>
+            {
                 if (t.Exception != null)
                 {
                     Debug.LogException(t.Exception);

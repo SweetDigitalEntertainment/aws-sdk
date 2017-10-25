@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Sweet.Game.Amazon
 {
-    public sealed class SQSRecieveMessageRequest : ServiceRequest
+    public sealed class SQSReceiveMessageRequest : ServiceRequest
     {
         public List<string> AttributeNames { get; set; }
         public int MaxNumberOfMessages { get; set; }
