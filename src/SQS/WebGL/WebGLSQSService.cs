@@ -95,7 +95,7 @@ namespace Sweet.Game.Amazon.WebGL
             ));
         }
 
-        public void ReceiveMessageAsync(SQSRecieveMessageRequest request, ServiceCallback<SQSRecieveMessageRequest, SQSReceiveMessageResponse> callback)
+        public void ReceiveMessageAsync(SQSReceiveMessageRequest request, ServiceCallback<SQSReceiveMessageRequest, SQSReceiveMessageResponse> callback)
         {
             string requestJson = JsonConvert.SerializeObject(request);
             _CallParameters[_CallId] = new CallParameters { Request = request, Callback = callback };
@@ -107,10 +107,10 @@ namespace Sweet.Game.Amazon.WebGL
         {
             CallParameters callParameters = _CallParameters[callId];
             _CallParameters.Remove(callId);
-            var request = (SQSRecieveMessageRequest)callParameters.Request;
-            var callback = (ServiceCallback<SQSRecieveMessageRequest, SQSReceiveMessageResponse>)callParameters.Callback;
+            var request = (SQSReceiveMessageRequest)callParameters.Request;
+            var callback = (ServiceCallback<SQSReceiveMessageRequest, SQSReceiveMessageResponse>)callParameters.Callback;
 
-            callback(new ServiceResult<SQSRecieveMessageRequest, SQSReceiveMessageResponse>(
+            callback(new ServiceResult<SQSReceiveMessageRequest, SQSReceiveMessageResponse>(
                 request,
                 isError == 1 ? null : JsonConvert.DeserializeObject<SQSReceiveMessageResponse>(result),
                 isError == 1 ? new WebGLServiceErrorException(JsonConvert.DeserializeObject<WebGLServiceError>(result, _ErrorSerializerSettings)) : null
