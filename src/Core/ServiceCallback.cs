@@ -1,4 +1,4 @@
-namespace Sweet.Game.Amazon
+namespace Sweet.Unity.Amazon
 {
     public delegate void ServiceCallback<TRequest, TResponse>(ServiceResult<TRequest, TResponse> result)
         where TRequest : ServiceRequest

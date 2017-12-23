@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Sweet.Game.Amazon
+namespace Sweet.Unity.Amazon
 {
     public sealed class ServiceResponseMetadata
     {

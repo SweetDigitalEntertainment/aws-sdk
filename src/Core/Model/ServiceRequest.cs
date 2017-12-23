@@ -1,4 +1,4 @@
-namespace Sweet.Game.Amazon
+namespace Sweet.Unity.Amazon
 {
     public abstract class ServiceRequest
     {

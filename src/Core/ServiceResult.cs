@@ -1,6 +1,6 @@
 using System;
 
-namespace Sweet.Game.Amazon
+namespace Sweet.Unity.Amazon
 {
     public class ServiceResult<TRequest, TResponse>
         where TRequest : ServiceRequest

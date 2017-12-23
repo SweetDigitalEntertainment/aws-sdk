@@ -1,6 +1,6 @@
 using System;
 
-namespace Sweet.Game.Amazon
+namespace Sweet.Unity.Amazon
 {
     public interface ICognitoIdentityResult<TResponse>
     {
@@ -12,7 +12,7 @@ namespace Sweet.Game.Amazon
 
     public sealed class CognitoIdentityResult<TResponse> : ICognitoIdentityResult<TResponse>
     {
-        public Exception Exception 
+        public Exception Exception
         {
             get; private set;
         }
