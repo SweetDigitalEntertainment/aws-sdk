@@ -11,5 +11,7 @@ namespace Sweet.Unity.Amazon
         ImmutableCredentials GetCredentials();
 
         void AddLogin(string provider, string token);
+
+        void Clear();
     }
 }

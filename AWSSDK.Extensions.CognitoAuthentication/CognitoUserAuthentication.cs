@@ -545,6 +545,8 @@ namespace Amazon.Extensions.CognitoAuthentication
             string providerName = "cognito-idp." + poolRegion + ".amazonaws.com/" + UserPool.PoolID;
 
             ICognitoAWSCredentials credentials = sdk.CreateCognitoAWSCredentials(identityPoolID, identityPoolRegion.SystemName);
+
+            credentials.Clear();
             credentials.AddLogin(providerName, SessionTokens.IdToken);
 
             return credentials;
