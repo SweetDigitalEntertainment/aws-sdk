@@ -1,0 +1,14 @@
+{
+    "name": "Sweet.Amazon",
+    "references": [
+        "Sweet.uPreferences"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
